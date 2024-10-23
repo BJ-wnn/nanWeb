@@ -23,10 +23,10 @@
 
 
         <!-- Spring Boot Starter Security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
 
         <!-- Thymeleaf 模板引擎（可选，用于前端页面） -->
         <dependency>
@@ -34,11 +34,17 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>3.0.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+            <version>4.4.0</version>
         </dependency>
 
         <!-- Spring Boot DevTools（可选，用于开发阶段热重载） -->
@@ -62,6 +68,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -125,11 +133,11 @@
                     <include>**/*.p12</include>
                 </includes>
             </resource>
-
             <resource>
-                <directory>src/main/resources-env/${env}</directory>
+                <directory>src/main/resources/resources-env/#{env}</directory>
                 <filtering>false</filtering>
             </resource>
+
         </resources>
 
         <plugins>
@@ -144,6 +152,32 @@
                 </configuration>
             </plugin>
 
+            <!--    打包时将 将不同环境的配置文件复制到jar包中        -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/resources-env/${env}</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
             <!-- 打包时 依赖独立于项目jar包-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -157,9 +191,11 @@
                             <mainClass>com.github.nan.web.NanWebApplication</mainClass>
                         </manifest>
                     </archive>
+                    <excludes>
+                        <exclude>resources-env/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -178,7 +214,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 
 <!--            <plugin>-->
 <!--                <groupId>org.springframework.boot</groupId>-->
