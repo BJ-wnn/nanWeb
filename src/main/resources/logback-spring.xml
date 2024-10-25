@@ -4,7 +4,7 @@
     <springProperty scope="context" name="log.path" source="log.path" defaultValue="logs"/>
     <springProperty scope="context" name="log.env" source="env.name" defaultValue="dev"/>
     <property name="log.service.name" value="nanWeb"/>
-    <property name="log.req.name" value="http-req"/>
+    <property name="log.req.name" value="webRequestLog"/>
 
     <!-- appender是configuration的子节点，是负责写日志的组件。 -->
     <!-- ConsoleAppender：把日志输出到控制台 -->
