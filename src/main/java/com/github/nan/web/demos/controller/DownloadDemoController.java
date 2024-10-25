@@ -1,4 +1,4 @@
-package com.github.nan.web.demos.web;
+package com.github.nan.web.demos.controller;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;

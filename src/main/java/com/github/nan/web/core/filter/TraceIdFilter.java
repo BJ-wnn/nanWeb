@@ -1,6 +1,7 @@
 package com.github.nan.web.core.filter;
 
 import org.slf4j.MDC;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -13,6 +14,7 @@ import java.util.UUID;
  */
 
 @Component
+@Order(1)
 public class TraceIdFilter implements Filter {
 
     @Override

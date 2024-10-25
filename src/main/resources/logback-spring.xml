@@ -3,8 +3,8 @@
     <!-- 从spring 资源文件读取属性 -->
     <springProperty scope="context" name="log.path" source="log.path" defaultValue="logs"/>
     <springProperty scope="context" name="log.env" source="env.name" defaultValue="dev"/>
-    <springProperty scope="context" name="log.service.name" source="spring.application.name"  defaultValue="nanWeb"/>
-    <springProperty scope="context" name="log.req.name" source="http.log.name" defaultValue="req"/>
+    <property name="log.service.name" value="nanWeb"/>
+    <property name="log.req.name" value="http-req"/>
 
     <!-- appender是configuration的子节点，是负责写日志的组件。 -->
     <!-- ConsoleAppender：把日志输出到控制台 -->
@@ -51,7 +51,8 @@
         </encoder>
     </appender>
 
-    <!--  请求日志 -->
+
+    <!--  http请求日志 -->
     <appender name="reqLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${log.path}/${log.req.name}-${log.env}.log</File>
         <!--滚动策略，按照时间滚动 TimeBasedRollingPolicy-->
@@ -68,21 +69,13 @@
         <!--日志输出编码格式化-->
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>[%d{yyyy-MM-dd HH:mm:ss}|%mdc{traceId}|] - %msg%n</pattern>
+            <pattern>%msg%n</pattern>
         </encoder>
     </appender>
 
-    <!--  请求调用日志  -->
-    <logger name="req" level="info" additivity="false">
-        <appender-ref ref="reqLog"/>
-    </logger>
 
-    <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
-    <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <!-- additivity=false 表示匹配之后，不再继续传递给其他的logger-->
-    <logger name="com.github.nan.web" level="INFO" additivity="false">
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="STDOUT"/>
+    <logger name="reqLog" level="INFO" additivity="false">
+        <appender-ref ref="reqLog"/>
     </logger>
 
     <!-- 定义根日志级别为 INFO -->

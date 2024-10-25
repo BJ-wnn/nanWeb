@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.nan.web.demos.web;
+package com.github.nan.web.demos.controller;
 
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
