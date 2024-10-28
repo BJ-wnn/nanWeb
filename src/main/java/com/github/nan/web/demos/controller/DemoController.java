@@ -1,9 +1,11 @@
 package com.github.nan.web.demos.controller;
 
+import com.github.nan.web.core.annotation.AutoWrapResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/demos")
 @Slf4j
+@AutoWrapResponse
 public class DemoController {
+
 
 
     @ApiOperation(value = "向世界问好")
@@ -46,7 +50,7 @@ public class DemoController {
     }
 
     @PostMapping("/save-user")
-    public String saveUser(@RequestBody User u) {
+    public String saveUser(@Validated @RequestBody User u) {
         return "user will save: name=" + u.getName() + ", age=" + u.getAge();
     }
 

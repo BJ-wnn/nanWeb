@@ -16,11 +16,14 @@
 
 package com.github.nan.web.demos.controller;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
  */
 public class User {
 
+    @NotBlank
     private String name;
 
     private Integer age;
