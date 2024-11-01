@@ -78,6 +78,33 @@
         <appender-ref ref="reqLog"/>
     </logger>
 
+
+    <!--   慢sql   -->
+    <appender name="slowSqlLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.path}/slow_sql-${log.env}.log</File>
+        <!--滚动策略，按照时间滚动 TimeBasedRollingPolicy-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中,以防止日志填满整个磁盘空间-->
+            <FileNamePattern>${log.path}/arch/slow_sql/slow_sql.%d{yyyy-MM-dd}.%i.log.gz</FileNamePattern>
+            <!-- 单个日志文件最多 100MB -->
+            <maxFileSize>100MB</maxFileSize>
+            <!--只保留最近10天的日志-->
+            <maxHistory>10</maxHistory>
+            <!--用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志-->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <!--日志输出编码格式化-->
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}|%mdc{traceId}|] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.alibaba.druid.filter.stat.StatFilter" level="info" additivity="false">
+        <appender-ref ref="slowSqlLog"/>
+    </logger>
+
+
     <!-- 定义根日志级别为 INFO -->
     <root level="INFO">
         <!-- 将根日志连接到名为 STDOUT 的 appender -->

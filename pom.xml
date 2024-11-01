@@ -40,10 +40,17 @@
         </dependency>
 
 
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.26</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.8</version>
         </dependency>
         <!-- Spring Boot Starter Security -->
 <!--        <dependency>-->
@@ -68,6 +75,14 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
             <version>4.4.0</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.9.3</version>
         </dependency>
 
         <!-- Spring Boot DevTools（可选，用于开发阶段热重载） -->
@@ -153,6 +168,7 @@
                 <filtering>true</filtering>
                 <excludes>
                     <exclude>**/*.p12</exclude>
+                    <exclude>**/*.xml</exclude>
                 </excludes>
             </resource>
             <resource>
@@ -160,6 +176,7 @@
                 <filtering>false</filtering>
                 <includes>
                     <include>**/*.p12</include>
+                    <include>**/*.xml</include>
                 </includes>
             </resource>
             <resource>

@@ -1,0 +1,1 @@
+org.springframework.boot.env.EnvironmentPostProcessor=com.github.nan.web.core.env.EncryptEnvironmentPostProcessor

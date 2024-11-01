@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.nan.web.demos.mapper.UserMapper">
+
+    <resultMap id="baseMap" type="com.github.nan.web.demos.mapper.po.UserPO">
+        <result column="id" property="id"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="create_at" property="createAt"/>
+
+    </resultMap>
+
+    <select id="selectAllUser" resultMap="baseMap">
+        select * from users
+    </select>
+</mapper>

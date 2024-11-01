@@ -1,12 +1,16 @@
 package com.github.nan.web.demos.controller;
 
 import com.github.nan.web.core.annotation.AutoWrapResponse;
+import com.github.nan.web.demos.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author NanNan Wang
@@ -16,9 +20,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/demos")
 @Slf4j
 @AutoWrapResponse
+@RequiredArgsConstructor
 public class DemoController {
 
-
+    private final UserService userService;
 
     @ApiOperation(value = "向世界问好")
     @GetMapping("/hello")
@@ -26,7 +31,6 @@ public class DemoController {
         log.info("first api , use mdc to create trace Id");
         return "hello world!";
     }
-
 
 
     @GetMapping("/hello/{name}")
@@ -46,7 +50,9 @@ public class DemoController {
         User user = new User();
         user.setName("theonefx");
         user.setAge(666);
-        return user;
+
+        final List<User> allUser = userService.findAllUser();
+        return allUser.isEmpty() ? user : allUser.get(0);
     }
 
     @PostMapping("/save-user")
